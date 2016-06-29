@@ -25,7 +25,10 @@
  * Linux
  */
 #if PLATFORM == PLATFORM_LINUX
-#include <attr/xattr.h>
+#ifndef ENOATTR
+# define ENOATTR ENODATA
+#endif
+#include <sys/xattr.h>
 
 #define EXTATTR_NAMESPACE_USER 0
 #define EXTATTR_NAMESPACE_SYSTEM 0
