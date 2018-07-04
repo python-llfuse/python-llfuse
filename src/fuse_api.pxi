@@ -467,6 +467,25 @@ cdef session_loop_mt(workers):
         stdlib.free(wd)
 
 
+def stop_fuse_from_another_thread():
+    '''Stop the FUSE main loop from another thread.
+    '''
+    res = pthread_mutex_lock(&exc_info_mutex)
+    if res != 0:
+        log.error('pthread_mutex_lock failed with %s', strerror(res))
+
+    fuse_session_exit(session)
+
+    pthread_mutex_unlock(&exc_info_mutex)
+
+    # Fuse is scheduled to stop, but won't do it until a request is send to
+    # it. To avoid hanging in this situation we force a dummy request ourself.
+    try:
+        os.listdir(mountpoint_b)
+    except OSError:
+        pass
+
+
 def close(unmount=True):
     '''Clean up and ensure filesystem is unmounted
 
