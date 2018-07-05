@@ -18,6 +18,8 @@ if __name__ == '__main__':
 
 import llfuse
 from llfuse import FUSEError
+from threading import Thread
+from unittest.mock import Mock
 import multiprocessing
 import os
 import errno
@@ -25,7 +27,7 @@ import stat
 import time
 import logging
 import threading
-from util import fuse_test_marker, wait_for_mount, umount, cleanup, wait_for
+from util import fuse_test_marker, wait_for_mount, umount, cleanup, wait_for, wait_for_mount_process_termination
 
 pytestmark = fuse_test_marker()
 
@@ -46,21 +48,26 @@ def testfs(tmpdir):
     mnt_dir = str(tmpdir)
     with mp.Manager() as mgr:
         cross_process = mgr.Namespace()
+        need_stop = mgr.Event()
+        cross_process.need_stop = need_stop
         mount_process = mp.Process(target=run_fs,
-                                   args=(mnt_dir, cross_process))
+                                   args=(mnt_dir, cross_process, need_stop))
 
         mount_process.start()
         try:
             wait_for_mount(mount_process, mnt_dir)
-            yield (mnt_dir, cross_process)
+            yield (mnt_dir, cross_process, need_stop)
         except:
             cleanup(mnt_dir)
             raise
         else:
-            umount(mount_process, mnt_dir)
+            if need_stop.is_set():
+                wait_for_mount_process_termination(mount_process)
+            else:
+                umount(mount_process, mnt_dir)
 
 def test_invalidate_entry(testfs):
-    (mnt_dir, fs_state) = testfs
+    (mnt_dir, fs_state, _) = testfs
     path = os.path.join(mnt_dir, 'message')
     os.stat(path)
     assert fs_state.lookup_called
@@ -81,7 +88,7 @@ def test_invalidate_entry(testfs):
     assert wait_for(check)
 
 def test_invalidate_inode(testfs):
-    (mnt_dir, fs_state) = testfs
+    (mnt_dir, fs_state, _) = testfs
     with open(os.path.join(mnt_dir, 'message'), 'r') as fh:
         assert fh.read() == 'hello world\n'
         assert fs_state.read_called
@@ -104,7 +111,7 @@ def test_invalidate_inode(testfs):
         assert wait_for(check)
 
 def test_notify_store(testfs):
-    (mnt_dir, fs_state) = testfs
+    (mnt_dir, fs_state, _) = testfs
     with open(os.path.join(mnt_dir, 'message'), 'r') as fh:
         llfuse.setxattr(mnt_dir, 'command', b'store')
         fs_state.read_called = False
@@ -112,7 +119,7 @@ def test_notify_store(testfs):
         assert not fs_state.read_called
 
 def test_entry_timeout(testfs):
-    (mnt_dir, fs_state) = testfs
+    (mnt_dir, fs_state, _) = testfs
     fs_state.entry_timeout = 1
     path = os.path.join(mnt_dir, 'message')
 
@@ -128,7 +135,7 @@ def test_entry_timeout(testfs):
     assert fs_state.lookup_called
 
 def test_attr_timeout(testfs):
-    (mnt_dir, fs_state) = testfs
+    (mnt_dir, fs_state, _) = testfs
     fs_state.attr_timeout = 1
     with open(os.path.join(mnt_dir, 'message'), 'r') as fh:
         os.fstat(fh.fileno())
@@ -141,6 +148,17 @@ def test_attr_timeout(testfs):
         fs_state.getattr_called = False
         os.fstat(fh.fileno())
         assert fs_state.getattr_called
+
+def test_call_stop_from_another_thread(testfs):
+    (mnt_dir, fs_state, need_stop) = testfs
+    path = os.path.join(mnt_dir, 'message')
+    os.stat(path)
+    assert fs_state.lookup_called
+    fs_state.lookup_called = False
+    os.stat(path)
+    assert not fs_state.lookup_called
+
+    need_stop.set()
 
 class Fs(llfuse.Operations):
     def __init__(self, cross_process):
@@ -231,7 +249,8 @@ class Fs(llfuse.Operations):
         else:
             raise FUSEError(errno.EINVAL)
 
-def run_fs(mountpoint, cross_process):
+def run_fs(mountpoint, cross_process, need_stop):
+
     # Logging (note that we run in a new process, so we can't
     # rely on direct log capture and instead print to stdout)
     root_logger = logging.getLogger()
@@ -243,6 +262,12 @@ def run_fs(mountpoint, cross_process):
     handler.setFormatter(formatter)
     root_logger.addHandler(handler)
     root_logger.setLevel(logging.DEBUG)
+
+    def _stop_watcher():
+        need_stop.wait()
+        llfuse.stop()
+
+    threading.Thread(target=_stop_watcher).start()
 
     testfs = Fs(cross_process)
     fuse_options = set(llfuse.default_options)

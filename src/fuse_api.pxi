@@ -467,8 +467,11 @@ cdef session_loop_mt(workers):
         stdlib.free(wd)
 
 
-def stop_fuse_from_another_thread():
-    '''Stop the FUSE main loop from another thread.
+def stop():
+    '''Stop the FUSE main loop.
+
+    This function is thread safe. Note once the `main` function has returned
+    the `close` function should still be called to clean up the filesystem.
     '''
     fuse_session_exit(session)
 

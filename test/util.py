@@ -117,6 +117,9 @@ def umount(mount_process, mnt_dir):
         subprocess.check_call(['fusermount', '-z', '-u', mnt_dir])
     assert not os.path.ismount(mnt_dir)
 
+    wait_for_mount_process_termination(mount_process)
+
+def wait_for_mount_process_termination(mount_process):
     # Give mount process a little while to terminate. Popen.wait(timeout)
     # was only added in 3.3...
     elapsed = 0
