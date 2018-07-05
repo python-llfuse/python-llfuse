@@ -110,6 +110,6 @@ def test_close_from_another_thread(tmpdir):
     thread.start()
     wait_for_mount(mountpoint)
 
-    llfuse.schedule_close()
+    llfuse.stop_fuse_from_another_thread()
     tmpdir.listdir()
     thread.join()
