@@ -266,13 +266,12 @@ def main(workers=None, handle_signals=True):
     if *workers* is ``1``). These (and all worker threads) are guaranteed to
     have terminated when `main` returns.
 
-    *handle_signals* specifies if special signal handlers should be installed
-    for the time this function is running for the *SIGTERM*, *SIGINT* (Ctrl-C),
-    *SIGHUP*, *SIGUSR1* and *SIGPIPE* signals.
-    *SIGPIPE* will be ignored, while the other three signals will cause
-    request processing to stop and the function to return.  *SIGINT* (Ctrl-C)
-    will thus *not* result in a `KeyboardInterrupt` exception while this
-    function is runnning.
+    Unless *handle_signals* is `False`, while this function is running, special
+    signal handlers will be installed for the *SIGTERM*, *SIGINT* (Ctrl-C),
+    *SIGHUP*, *SIGUSR1* and *SIGPIPE* signals. *SIGPIPE* will be ignored,
+    while the other three signals will cause request processing to stop
+    and the function to return.  *SIGINT* (Ctrl-C) will thus *not* result in
+    a `KeyboardInterrupt` exception while this function is runnning.
     Note setting *handle_signals* to `False` means you must handle the signals
     by yourself and call `stop` to make the `main` returns.
 
