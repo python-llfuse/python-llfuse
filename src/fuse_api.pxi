@@ -470,7 +470,7 @@ cdef session_loop_mt(workers):
 def stop():
     '''Stop the FUSE main loop.
 
-    This function is thread safe. Note once the `main` function has returned
+    This function is thread safe. Once the `main` function has returned
     the `close` function should still be called to clean up the filesystem.
     '''
     fuse_session_exit(session)
