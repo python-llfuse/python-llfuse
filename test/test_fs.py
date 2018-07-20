@@ -49,7 +49,6 @@ def testfs(tmpdir):
     with mp.Manager() as mgr:
         cross_process = mgr.Namespace()
         need_stop = mgr.Event()
-        cross_process.need_stop = need_stop
         mount_process = mp.Process(target=run_fs,
                                    args=(mnt_dir, cross_process, need_stop))
 
@@ -152,11 +151,9 @@ def test_attr_timeout(testfs):
 def test_call_stop_from_another_thread(testfs):
     (mnt_dir, fs_state, need_stop) = testfs
     path = os.path.join(mnt_dir, 'message')
+
+    # Ensure FS is ready
     os.stat(path)
-    assert fs_state.lookup_called
-    fs_state.lookup_called = False
-    os.stat(path)
-    assert not fs_state.lookup_called
 
     need_stop.set()
 
