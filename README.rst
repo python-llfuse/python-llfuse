@@ -6,6 +6,14 @@
 The Python-LLFUSE Module
 ========================
 
+
+**Warning - no longer maintained**
+
+Python-LLFUSE is no longer actively maintained. Unless you are stuck
+with Python 2.x or libfuse 2.x, we recommended to use the pyfuse3_
+module instead.
+
+
 .. start-intro
 
 Python-LLFUSE is a set of Python bindings for the low level FUSE_
@@ -20,6 +28,8 @@ Python-LLFUSE releases can be downloaded from PyPi_. The documentation
 can be `read online`__ and is also included in the ``doc/html``
 directory of the Python-LLFUSE tarball.
 
+
+.. _pyfuse3: https://github.com/libfuse/pyfuse3
 
 Getting Help
 ------------
