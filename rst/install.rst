@@ -51,7 +51,7 @@ To install a stable Python-LLFUSE release:
 2. Run ``python setup.py build_ext --inplace`` to build the C extension
 3. Run ``python -m pytest test/`` to run a self-test. If this fails, ask
    for help on the `FUSE mailing list`_  or report a bug in the
-   `issue tracker <https://bitbucket.org/nikratio/python-llfuse/issues>`_.
+   `issue tracker <https://github.com/python-llfuse/python-llfuse/issues>`_.
 4. To install system-wide for all users, run ``sudo python setup.py
    install``. To install into :file:`~/.local`, run ``python
    setup.py install --user``.
@@ -61,9 +61,9 @@ Development Version
 ===================
 
 If you have checked out the unstable development version from the
-repository ( Mercurial_ or Git_ ), a bit more effort is required. You need to also
-have Cython_ (0.24 or newer) and Sphinx_ (1.1 or newer) installed, and
-the necessary commands are::
+repository, a bit more effort is required. You need to also have
+Cython_ (0.24 or newer) and Sphinx_ (1.1 or newer) installed, and the
+necessary commands are::
 
   python setup.py build_cython
   python setup.py build_ext --inplace
@@ -84,5 +84,4 @@ the necessary commands are::
 .. _OSXFUSE: http://osxfuse.github.io/
 .. _setuptools: https://pypi.python.org/pypi/setuptools
 .. _contextlib2: https://pypi.python.org/pypi/contextlib2/
-.. _Mercurial: https://bitbucket.org/nikratio/python-llfuse
 .. _Git: https://github.com/python-llfuse/python-llfuse
