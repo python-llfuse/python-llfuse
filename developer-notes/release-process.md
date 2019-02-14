@@ -10,6 +10,6 @@
     * `python setup.py build_ext --inplace && python -m pytest test`
     * Run tests under valgrind. Build python `--with-valgrind --with-pydebug`, then `valgrind --trace-children=yes "--trace-children-skip=*mount*" python-dbg -m pytest test/`
     * `./setup.py build_sphinx`
-    * `./setup.py upload_docs` 
- * `./setup.py sdist upload --sign`
- * hg commit, hg tag
+    * `./setup.py upload_docs`
+    * `./setup.py sdist upload --sign`
+ * git commit, git tag -s
