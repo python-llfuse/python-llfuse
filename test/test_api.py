@@ -21,6 +21,7 @@ import tempfile
 import os
 import errno
 import pytest
+import platform
 from copy import copy
 from pickle import PicklingError
 
@@ -35,6 +36,7 @@ def test_listdir():
     list2 = set(llfuse.listdir('/usr/bin'))
     assert list1 == list2
 
+@pytest.mark.skipif(platform.system() == 'Darwin', reason='requires /proc')
 def test_sup_groups():
     gids = llfuse.get_sup_groups(os.getpid())
     gids2 = set(os.getgroups())
