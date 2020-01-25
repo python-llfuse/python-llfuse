@@ -33,7 +33,7 @@ def fuse_test_marker():
 
     if platform.system() == 'Darwin':
         # No working autodetection, just assume it will work.
-        return
+        return pytest.mark.uses_fuse()
     skip = lambda x: pytest.mark.skip(reason=x)
 
     # Python 2.x: Popen is not a context manager...
