@@ -11,7 +11,7 @@ module instead.
 Release 1.3.7 (2020-10-04)
 ==========================
 
-* Rebuild with Cython 0.29.21 for Python 3.8 compatibility.
+* Rebuild with Cython 0.29.21 for Python 3.9 compatibility.
 
 Release 1.3.6 (2019-02-14)
 ==========================
