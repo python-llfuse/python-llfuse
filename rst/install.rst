@@ -62,7 +62,7 @@ Development Version
 
 If you have checked out the unstable development version from the
 repository, a bit more effort is required. You need to also have
-Cython_ (0.24 or newer) and Sphinx_ (1.1 or newer) installed, and the
+Cython_ (0.29.21 or newer) and Sphinx_ (1.1 or newer) installed, and the
 necessary commands are::
 
   python setup.py build_cython
