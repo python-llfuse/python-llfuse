@@ -1,10 +1,27 @@
 sudo: required
-dist: xenial
+language: python
 
-language:
-    - python
-python:
-    - "3.6"
+matrix:
+    include:
+        - python: "3.4"
+          os: linux
+          dist: trusty
+        - python: "3.5"
+          os: linux
+          dist: xenial
+        - python: "3.6"
+          os: linux
+          dist: bionic
+        - python: "3.7"
+          os: linux
+          dist: bionic
+        - python: "3.8"
+          os: linux
+          dist: focal
+        - python: "3.9-dev"
+          os: linux
+          dist: focal
+
 addons:
   apt:
     packages:
