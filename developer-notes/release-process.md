@@ -1,5 +1,11 @@
-# Steps for Releasing a New Version #
+# Pre-release checks #
 
+- `export DEVELOPER_MODE=1`  # good idea to have this always set while developping
+- build_cython / build_ext
+- check for warnings/errors needing fixing
+
+# Releasing a new version #
+ * `export DEVELOPER_MODE=0`  # or just not have it set
  * Bump version in `setup.py`
  * Add release date to `Changes.txt`
  * Check `hg status -u`, if necessary run `hg purge` to avoid undesired files in the tarball.
