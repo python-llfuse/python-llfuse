@@ -10,3 +10,4 @@ prune test/.cache
 exclude MANIFEST.in
 recursive-include src *.pyx *.pxi *.c *.h
 global-exclude *.pyc
+global-exclude __pycache__
