@@ -11,6 +11,9 @@ the terms of the GNU LGPL.
 
 '''
 
+from libc.stdint cimport uintptr_t
+
+
 def listdir(path):
     '''Like `os.listdir`, but releases the GIL.
 
@@ -382,6 +385,7 @@ ctypedef struct worker_data_t:
 cdef void* worker_start(void* data) with gil:
     cdef worker_data_t *wd
     cdef int res
+    cdef uintptr_t tid
     global exc_info
 
     wd = <worker_data_t*> data
@@ -393,8 +397,9 @@ cdef void* worker_start(void* data) with gil:
         session_loop(wd.buf, wd.bufsize)
     except:
         fuse_session_exit(session)
+        tid = wd.thread_id
         log.error('FUSE worker thread %d terminated with exception, '
-                  'aborting processing', wd.thread_id)
+                  'aborting processing', tid)
         res = pthread_mutex_lock(&exc_info_mutex)
         if res != 0:
             log.error('pthread_mutex_lock failed with %s',
