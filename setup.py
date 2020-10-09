@@ -46,15 +46,11 @@ from distutils.version import LooseVersion
 basedir = os.path.abspath(os.path.dirname(sys.argv[0]))
 sys.path.insert(0, os.path.join(basedir, 'util'))
 
-ON_TRAVIS = os.environ.get('TRAVIS_OS_NAME') is not None
-
-# when running on developer machine / from a repo checkout:
+# when running with DEVELOPER_MODE=1 in the environment:
 # enable all warnings, abort on some warnings.
-# when running on travis-ci, do not use developer mode, so it
-# can compile and test even if there are e.g. deprecation warnings.
-DEVELOPER_MODE = os.path.exists(os.path.join(basedir, 'MANIFEST.in')) and not ON_TRAVIS
+DEVELOPER_MODE = os.getenv('DEVELOPER_MODE', '0') == '1'
 if DEVELOPER_MODE:
-    print('found MANIFEST.in, running in developer mode')
+    print('running in developer mode')
     warnings.resetwarnings()
     # We can't use `error`, because e.g. Sphinx triggers a
     # DeprecationWarning.
