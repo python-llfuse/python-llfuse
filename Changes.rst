@@ -8,6 +8,12 @@
 with Python 2.x or libfuse 2.x, we recommended to use the pyfuse3_
 module instead.
 
+Release 1.x.y (TBD)
+===================
+
+* Fix long-standing rounding error in file date handling when the nanosecond
+  part of file dates were > 999999500.
+
 Release 1.3.8 (2020-10-10)
 ==========================
 

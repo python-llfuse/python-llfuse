@@ -26,6 +26,7 @@ import filecmp
 import errno
 from tempfile import NamedTemporaryFile
 from util import fuse_test_marker, wait_for_mount, umount, cleanup
+from llfuse import _NANOS_PER_SEC
 
 basename = os.path.join(os.path.dirname(__file__), '..')
 TEST_FILE = __file__
@@ -80,6 +81,7 @@ def test_tmpfs(tmpdir):
         tst_chown(mnt_dir)
         tst_chmod(mnt_dir)
         tst_utimens(mnt_dir)
+        tst_rounding(mnt_dir)
         tst_link(mnt_dir)
         tst_readdir(mnt_dir)
         tst_statvfs(mnt_dir)
@@ -113,6 +115,7 @@ def test_passthroughfs(tmpdir):
         tst_chmod(mnt_dir)
         # Underlying fs may not have full nanosecond resolution
         tst_utimens(mnt_dir, ns_tol=1000)
+        tst_rounding(mnt_dir)
         tst_link(mnt_dir)
         tst_readdir(mnt_dir)
         tst_statvfs(mnt_dir)
@@ -340,6 +343,35 @@ def tst_utimens(mnt_dir, ns_tol=0):
     if sys.version_info >= (3,3):
         assert abs(fstat.st_atime_ns - atime_ns) <= ns_tol
         assert abs(fstat.st_mtime_ns - mtime_ns) <= ns_tol
+
+    checked_unlink(filename, mnt_dir, isdir=True)
+
+def tst_rounding(mnt_dir, ns_tol=0):
+    filename = os.path.join(mnt_dir, name_generator())
+    os.mkdir(filename)
+    fstat = os.lstat(filename)
+
+    # Approximately 100 years
+    secs = 100 * 365 * 24 * 3600 + 999
+    # Max nanos
+    nanos = _NANOS_PER_SEC - 1
+
+    # seconds+ns and ns_tol as a float in seconds 
+    secs_f = secs + nanos / _NANOS_PER_SEC
+    secs_tol = ns_tol / _NANOS_PER_SEC
+    
+    atime_ns = secs * _NANOS_PER_SEC + nanos
+    mtime_ns = atime_ns
+
+    os.utime(filename, None, ns=(atime_ns, mtime_ns))
+
+    fstat = os.lstat(filename)
+
+    assert abs(fstat.st_atime - secs_f) <= secs_tol
+    assert abs(fstat.st_mtime - secs_f) <= secs_tol
+
+    assert abs(fstat.st_atime_ns - atime_ns) <= ns_tol
+    assert abs(fstat.st_mtime_ns - mtime_ns) <= ns_tol
 
     checked_unlink(filename, mnt_dir, isdir=True)
 
