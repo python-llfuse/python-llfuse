@@ -9,11 +9,12 @@ The Python-LLFUSE Module
 
 .. start-intro
 
-**Warning - no longer maintained**
+**Warning - no longer developed!**
 
-Python-LLFUSE is no longer actively maintained. Unless you are stuck
-with Python 2.x or libfuse 2.x, we recommended to use the pyfuse3_
-module instead.
+Python-LLFUSE is no longer actively developed and just receiving
+community-contributed maintenance to keep it alive for some time.
+Unless you are stuck with Python 2.x or libfuse 2.x, we recommend
+to use the pyfuse3_ module instead.
 
 Python-LLFUSE is a set of Python bindings for the low level FUSE_
 API. It requires at least FUSE 2.8.0 and supports both Python 2.x and
