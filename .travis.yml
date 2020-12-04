@@ -18,7 +18,7 @@ matrix:
         - python: "3.8"
           os: linux
           dist: focal
-        - python: "3.9-dev"
+        - python: "3.9"
           os: linux
           dist: focal
         - python: "3.5"
@@ -37,7 +37,7 @@ matrix:
           arch : ppc64le
           os: linux
           dist: focal
-        - python: "3.9-dev"
+        - python: "3.9"
           arch : ppc64le
           os: linux
           dist: focal
@@ -49,5 +49,7 @@ addons:
     - pkg-config
     - gcc
     - libfuse-dev
+
 install: test/travis-install.sh
+
 script: test/travis-test.sh
