@@ -99,7 +99,7 @@ class TestFs(llfuse.Operations):
         if inode != self.hello_inode:
             raise llfuse.FUSEError(errno.ENOENT)
         if flags & os.O_RDWR or flags & os.O_WRONLY:
-            raise llfuse.FUSEError(errno.EPERM)
+            raise llfuse.FUSEError(errno.EACCES)
         return inode
 
     def read(self, fh, off, size):
