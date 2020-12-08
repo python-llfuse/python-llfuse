@@ -475,6 +475,22 @@ cdef session_loop_mt(workers):
         stdlib.free(wd)
 
 
+def stop():
+    '''Stop the FUSE main loop.
+
+    This function is thread safe. Once the `main` function has returned
+    the `close` function should still be called to clean up the filesystem.
+    '''
+    fuse_session_exit(session)
+
+    # Fuse is scheduled to stop, but won't do it until a request is send to
+    # it. To avoid hanging in this situation we force a dummy request ourself.
+    try:
+        os.listdir(mountpoint_b)
+    except OSError:
+        pass
+
+
 def close(unmount=True):
     '''Clean up and ensure filesystem is unmounted
 
