@@ -55,7 +55,7 @@ def test_lltest(tmpdir):
             assert fh.read() == 'hello world\n'
         with pytest.raises(IOError) as exc_info:
             open(filename, 'r+')
-        assert exc_info.value.errno == errno.EPERM
+        assert exc_info.value.errno == errno.EACCES
         with pytest.raises(IOError) as exc_info:
             open(filename + 'does-not-exist', 'r+')
         assert exc_info.value.errno == errno.ENOENT

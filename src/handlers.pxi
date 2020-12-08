@@ -694,7 +694,7 @@ cdef void fuse_access (fuse_req_t req, fuse_ino_t ino, int mask) with gil:
         if allowed:
             ret = fuse_reply_err(req, 0)
         else:
-            ret = fuse_reply_err(req, EPERM)
+            ret = fuse_reply_err(req, EACCES)
     except FUSEError as e:
         ret = fuse_reply_err(req, e.errno)
     except:
