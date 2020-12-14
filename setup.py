@@ -157,6 +157,7 @@ def main():
           keywords=['FUSE', 'python' ],
           package_dir={'': 'src'},
           packages=setuptools.find_packages('src'),
+          python_requires='>=3.5',
           tests_require=['pytest >= 3.4.0'],
           provides=['llfuse'],
           ext_modules=[Extension('llfuse', c_sources,
