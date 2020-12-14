@@ -324,13 +324,7 @@ def main(workers=None, handle_signals=True):
         tmp = exc_info
         exc_info = None
 
-        # The explicit version check works around a Cython bug with
-        # the 3-parameter version of the raise statement, c.f.
-        # https://github.com/cython/cython/commit/a6195f1a44ab21f5aa4b2a1b1842dd93115a3f42
-        if PY_MAJOR_VERSION < 3:
-            raise tmp[0], tmp[1], tmp[2]
-        else:
-            raise tmp[1].with_traceback(tmp[2])
+        raise tmp[1].with_traceback(tmp[2])
 
     if exit_reason == signal.SIGKILL:
         return None
@@ -519,13 +513,7 @@ def close(unmount=True):
         tmp = exc_info
         exc_info = None
 
-        # The explicit version check works around a Cython bug with
-        # the 3-parameter version of the raise statement, c.f.
-        # https://github.com/cython/cython/commit/a6195f1a44ab21f5aa4b2a1b1842dd93115a3f42
-        if PY_MAJOR_VERSION < 3:
-            raise tmp[0], tmp[1], tmp[2]
-        else:
-            raise tmp[1].with_traceback(tmp[2])
+        raise tmp[1].with_traceback(tmp[2])
 
 def invalidate_inode(fuse_ino_t inode, attr_only=False):
     '''Invalidate cache for *inode*

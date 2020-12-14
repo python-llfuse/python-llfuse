@@ -53,12 +53,6 @@ else:
 
 log = logging.getLogger()
 
-# For Python 2 + 3 compatibility
-if sys.version_info[0] == 2:
-    def next(it):
-        return it.next()
-else:
-    buffer = memoryview
 
 class Operations(llfuse.Operations):
     '''An example filesystem that stores all data in memory
@@ -286,7 +280,7 @@ class Operations(llfuse.Operations):
             else:
                 data = data[:attr.st_size]
             self.cursor.execute('UPDATE inodes SET data=?, size=? WHERE id=?',
-                                (buffer(data), attr.st_size, inode))
+                                (memoryview(data), attr.st_size, inode))
         if fields.update_mode:
             self.cursor.execute('UPDATE inodes SET mode=? WHERE id=?',
                                 (attr.st_mode, inode))
@@ -381,7 +375,7 @@ class Operations(llfuse.Operations):
         data = data[:offset] + buf + data[offset+len(buf):]
 
         self.cursor.execute('UPDATE inodes SET data=?, size=? WHERE id=?',
-                            (buffer(data), len(data), fh))
+                            (memoryview(data), len(data), fh))
         return len(buf)
 
     def release(self, fh):

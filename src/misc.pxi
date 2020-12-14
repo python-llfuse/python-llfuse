@@ -288,26 +288,16 @@ def _notify_loop():
 cdef str2bytes(s):
     '''Convert *s* to bytes
 
-    Under Python 2.x, just returns *s*. Under Python 3.x, converts
-    to file system encoding using surrogateescape.
+    Converts to file system encoding using surrogateescape.
     '''
-
-    if PY_MAJOR_VERSION < 3:
-        return s
-    else:
-        return s.encode(fse, 'surrogateescape')
+    return s.encode(fse, 'surrogateescape')
 
 cdef bytes2str(s):
     '''Convert *s* to str
 
-    Under Python 2.x, just returns *s*. Under Python 3.x, converts
-    from file system encoding using surrogateescape.
+    Converts from file system encoding using surrogateescape.
     '''
-
-    if PY_MAJOR_VERSION < 3:
-        return s
-    else:
-        return s.decode(fse, 'surrogateescape')
+    return s.decode(fse, 'surrogateescape')
 
 cdef strerror(int errno):
     try:
