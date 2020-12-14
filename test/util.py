@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 util.py - Utility functions for Python-LLFUSE unit tests.
 
@@ -9,7 +8,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 import platform
 import subprocess

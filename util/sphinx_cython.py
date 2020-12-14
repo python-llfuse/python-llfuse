@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 '''
 sphinx_cython.py
 
@@ -11,7 +10,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 import re
 

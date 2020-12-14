@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 test_examples.py - Unit tests for Python-LLFUSE.
 
@@ -9,7 +8,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 if __name__ == '__main__':
     import pytest
@@ -51,7 +49,7 @@ def test_lltest(tmpdir):
         wait_for_mount(mount_process, mnt_dir)
         assert os.listdir(mnt_dir) == [ 'message' ]
         filename = os.path.join(mnt_dir, 'message')
-        with open(filename, 'r') as fh:
+        with open(filename) as fh:
             assert fh.read() == 'hello world\n'
         with pytest.raises(IOError) as exc_info:
             open(filename, 'r+')

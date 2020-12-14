@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 test_fs.py - Unit tests for Python-LLFUSE.
 
@@ -9,7 +8,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 import pytest
 import sys
 
@@ -82,7 +80,7 @@ def test_invalidate_entry(testfs):
 
 def test_invalidate_inode(testfs):
     (mnt_dir, fs_state) = testfs
-    with open(os.path.join(mnt_dir, 'message'), 'r') as fh:
+    with open(os.path.join(mnt_dir, 'message')) as fh:
         assert fh.read() == 'hello world\n'
         assert fs_state.read_called
         fs_state.read_called = False
@@ -105,7 +103,7 @@ def test_invalidate_inode(testfs):
 
 def test_notify_store(testfs):
     (mnt_dir, fs_state) = testfs
-    with open(os.path.join(mnt_dir, 'message'), 'r') as fh:
+    with open(os.path.join(mnt_dir, 'message')) as fh:
         llfuse.setxattr(mnt_dir, 'command', b'store')
         fs_state.read_called = False
         assert fh.read() == 'hello world\n'
@@ -130,7 +128,7 @@ def test_entry_timeout(testfs):
 def test_attr_timeout(testfs):
     (mnt_dir, fs_state) = testfs
     fs_state.attr_timeout = 1
-    with open(os.path.join(mnt_dir, 'message'), 'r') as fh:
+    with open(os.path.join(mnt_dir, 'message')) as fh:
         os.fstat(fh.fileno())
         assert fs_state.getattr_called
         fs_state.getattr_called = False
@@ -144,7 +142,7 @@ def test_attr_timeout(testfs):
 
 class Fs(llfuse.Operations):
     def __init__(self, cross_process):
-        super(Fs, self).__init__()
+        super().__init__()
         self.hello_name = b"message"
         self.hello_inode = llfuse.ROOT_INODE+1
         self.hello_data = b"hello world\n"

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#-*- coding: us-ascii -*-
 '''
 setup.py
 
@@ -11,7 +10,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 import sys
 import os
@@ -71,7 +69,7 @@ def main():
     else:
         fix_docutils()
 
-    with open(os.path.join(basedir, 'README.rst'), 'r') as fh:
+    with open(os.path.join(basedir, 'README.rst')) as fh:
         long_desc = fh.read()
 
     compile_args = pkg_config('fuse', cflags=True, ldflags=False, min_ver='2.8.0')

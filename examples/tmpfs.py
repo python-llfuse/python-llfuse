@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 tmpfs.py - Example file system for Python-LLFUSE.
 
@@ -22,7 +21,6 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 import os
 import sys
@@ -68,7 +66,7 @@ class Operations(llfuse.Operations):
 
 
     def __init__(self):
-        super(Operations, self).__init__()
+        super().__init__()
         self.db = sqlite3.connect(':memory:')
         self.db.text_factory = str
         self.db.row_factory = sqlite3.Row
