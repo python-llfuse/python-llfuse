@@ -3,9 +3,6 @@ language: python
 
 matrix:
     include:
-        - python: "3.4"
-          os: linux
-          dist: trusty
         - python: "3.5"
           os: linux
           dist: xenial
