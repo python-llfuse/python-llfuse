@@ -1,0 +1,38 @@
+name: Test
+
+on: [push, pull_request]
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.5", "3.6", "3.7", "3.8", "3.9"]
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get install libattr1-dev
+          sudo apt-get install pkg-config
+          sudo apt-get install gcc
+          sudo apt-get install libfuse-dev
+
+      - name: Install Python dependencies
+        run: |
+          test/ci-install.sh
+
+      - name: Test
+        run: |
+          test/ci-test.sh
