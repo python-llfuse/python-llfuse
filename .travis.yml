@@ -4,21 +4,6 @@ language: python
 matrix:
     include:
         - python: "3.5"
-          os: linux
-          dist: xenial
-        - python: "3.6"
-          os: linux
-          dist: bionic
-        - python: "3.7"
-          os: linux
-          dist: bionic
-        - python: "3.8"
-          os: linux
-          dist: focal
-        - python: "3.9"
-          os: linux
-          dist: focal
-        - python: "3.5"
           arch : ppc64le
           os: linux
           dist: xenial
@@ -47,6 +32,6 @@ addons:
     - gcc
     - libfuse-dev
 
-install: test/travis-install.sh
+install: test/ci-install.sh
 
-script: test/travis-test.sh
+script: test/ci-test.sh
