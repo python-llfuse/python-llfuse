@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 tmpfs.py - Example file system for Python-LLFUSE.
 
@@ -22,7 +21,6 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 import os
 import sys
@@ -53,12 +51,6 @@ else:
 
 log = logging.getLogger()
 
-# For Python 2 + 3 compatibility
-if sys.version_info[0] == 2:
-    def next(it):
-        return it.next()
-else:
-    buffer = memoryview
 
 class Operations(llfuse.Operations):
     '''An example filesystem that stores all data in memory
@@ -74,7 +66,7 @@ class Operations(llfuse.Operations):
 
 
     def __init__(self):
-        super(Operations, self).__init__()
+        super().__init__()
         self.db = sqlite3.connect(':memory:')
         self.db.text_factory = str
         self.db.row_factory = sqlite3.Row
@@ -286,7 +278,7 @@ class Operations(llfuse.Operations):
             else:
                 data = data[:attr.st_size]
             self.cursor.execute('UPDATE inodes SET data=?, size=? WHERE id=?',
-                                (buffer(data), attr.st_size, inode))
+                                (memoryview(data), attr.st_size, inode))
         if fields.update_mode:
             self.cursor.execute('UPDATE inodes SET mode=? WHERE id=?',
                                 (attr.st_mode, inode))
@@ -381,7 +373,7 @@ class Operations(llfuse.Operations):
         data = data[:offset] + buf + data[offset+len(buf):]
 
         self.cursor.execute('UPDATE inodes SET data=?, size=? WHERE id=?',
-                            (buffer(data), len(data), fh))
+                            (memoryview(data), len(data), fh))
         return len(buf)
 
     def release(self, fh):

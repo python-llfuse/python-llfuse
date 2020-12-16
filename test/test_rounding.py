@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 test_api.py - Unit tests for Python-LLFUSE.
 
@@ -9,7 +8,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 if __name__ == '__main__':
     import pytest

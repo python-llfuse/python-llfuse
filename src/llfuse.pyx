@@ -36,8 +36,8 @@ from cpython.buffer cimport (PyObject_GetBuffer, PyBuffer_Release,
                              PyBUF_CONTIG_RO, PyBUF_CONTIG)
 cimport cpython.exc
 cimport cython
-from cpython.version cimport PY_MAJOR_VERSION
 from libc cimport signal
+import contextlib
 
 
 ######################
@@ -112,15 +112,8 @@ import sys
 import os.path
 import threading
 from pickle import PicklingError
-
-if PY_MAJOR_VERSION < 3:
-    from Queue import Queue
-    import contextlib2 as contextlib
-    str_t = bytes
-else:
-    from queue import Queue
-    str_t = str
-    import contextlib
+from queue import Queue
+str_t = str
 
 ##################
 # GLOBAL VARIABLES

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 test_examples.py - Unit tests for Python-LLFUSE.
 
@@ -9,7 +8,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 if __name__ == '__main__':
     import pytest
@@ -51,7 +49,7 @@ def test_lltest(tmpdir):
         wait_for_mount(mount_process, mnt_dir)
         assert os.listdir(mnt_dir) == [ 'message' ]
         filename = os.path.join(mnt_dir, 'message')
-        with open(filename, 'r') as fh:
+        with open(filename) as fh:
             assert fh.read() == 'hello world\n'
         with pytest.raises(IOError) as exc_info:
             open(filename, 'r+')
@@ -94,8 +92,6 @@ def test_tmpfs(tmpdir):
     else:
         umount(mount_process, mnt_dir)
 
-@pytest.mark.skipif(sys.version_info < (3,3),
-                    reason="requires python3.3")
 def test_passthroughfs(tmpdir):
     mnt_dir = str(tmpdir.mkdir('mnt'))
     src_dir = str(tmpdir.mkdir('src'))
@@ -270,11 +266,8 @@ def tst_readdir(mnt_dir):
     os.rmdir(subdir)
     os.rmdir(dir_)
 
-def tst_truncate_path(mnt_dir):
-    if sys.version_info < (3,0):
-        # 2.x has no os.truncate
-        return
 
+def tst_truncate_path(mnt_dir):
     assert len(TEST_DATA) > 1024
 
     filename = os.path.join(mnt_dir, name_generator())
@@ -329,20 +322,16 @@ def tst_utimens(mnt_dir, ns_tol=0):
 
     atime = fstat.st_atime + 42.28
     mtime = fstat.st_mtime - 42.23
-    if sys.version_info < (3,3):
-        os.utime(filename, (atime, mtime))
-    else:
-        atime_ns = fstat.st_atime_ns + int(42.28*1e9)
-        mtime_ns = fstat.st_mtime_ns - int(42.23*1e9)
-        os.utime(filename, None, ns=(atime_ns, mtime_ns))
+    atime_ns = fstat.st_atime_ns + int(42.28*1e9)
+    mtime_ns = fstat.st_mtime_ns - int(42.23*1e9)
+    os.utime(filename, None, ns=(atime_ns, mtime_ns))
 
     fstat = os.lstat(filename)
 
     assert abs(fstat.st_atime - atime) < 1e-3
     assert abs(fstat.st_mtime - mtime) < 1e-3
-    if sys.version_info >= (3,3):
-        assert abs(fstat.st_atime_ns - atime_ns) <= ns_tol
-        assert abs(fstat.st_mtime_ns - mtime_ns) <= ns_tol
+    assert abs(fstat.st_atime_ns - atime_ns) <= ns_tol
+    assert abs(fstat.st_mtime_ns - mtime_ns) <= ns_tol
 
     checked_unlink(filename, mnt_dir, isdir=True)
 

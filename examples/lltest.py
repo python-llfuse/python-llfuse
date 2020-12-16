@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 lltest.py - Example file system for Python-LLFUSE.
 
@@ -23,7 +22,6 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 import os
 import sys
@@ -52,7 +50,7 @@ log = logging.getLogger(__name__)
 
 class TestFs(llfuse.Operations):
     def __init__(self):
-        super(TestFs, self).__init__()
+        super().__init__()
         self.hello_name = b"message"
         self.hello_inode = llfuse.ROOT_INODE+1
         self.hello_data = b"hello world\n"

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 '''
 util.py - Utility functions for Python-LLFUSE unit tests.
 
@@ -9,7 +8,6 @@ This file is part of Python-LLFUSE. This work may be distributed under
 the terms of the GNU LGPL.
 '''
 
-from __future__ import division, print_function, absolute_import
 
 import platform
 import subprocess
@@ -17,11 +15,7 @@ import pytest
 import os
 import stat
 import time
-import sys
 
-# For Python 2 + 3 compatibility
-if sys.version_info[0] == 2:
-    subprocess.DEVNULL = open('/dev/null', 'w')
 
 def fuse_test_marker():
     '''Return a pytest.marker that indicates FUSE availability
