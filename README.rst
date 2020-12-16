@@ -15,7 +15,7 @@ Python-LLFUSE is no longer actively developed and just receiving
 community-contributed maintenance to keep it alive for some time.
 Unless you are stuck with Python 2.x or libfuse 2.x, we recommend
 to use the pyfuse3_ module instead - see pyfuse3_porting_ for some
-hints.
+hints. If you are stuck on Python 2.x, use llfuse<1.4.0.
 
 Python-LLFUSE is a set of Python bindings for the low level FUSE_
 API. It requires at least FUSE 2.8.0 and supports both Python 2.x and
