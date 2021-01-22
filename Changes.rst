@@ -4,15 +4,27 @@
 
 .. currentmodule:: llfuse
 
-**WARNING**: Python-LLFUSE is no longer actively maintained. Unless you are stuck
+**WARNING**: Python-LLFUSE is no longer actively developed. Unless you are stuck
 with Python 2.x or libfuse 2.x, we recommended to use the pyfuse3_
 module instead.
 
-Release 1.x.y (TBD)
+Release 1.4.0 (TBD)
 ===================
 
+* Remove py2 and py3<3.5 support, minimum requirement is Python 3.5 now.
+  If you are stuck on Python 2.x or < 3.5, use llfuse<1.4.0.
+* setup.py: return rc=2 in error cases, fixes #52.
+  implements same behaviour as pyfuse3 for these cases.
+* Use EACCES instead of EPERM for file permission errors, fixes #36.
 * Fix long-standing rounding error in file date handling when the nanosecond
-  part of file dates were > 999999500.
+  part of file dates were > 999999500, fixes #38.
+* Docs: add link to pyfuse3 porting hints ticket
+* Testing:
+
+  - Add Power support (ppc64le) to travis CI.
+  - Move CI to GitHub Actions, except ppc64le.
+  - Test fixes for pytest 6.
+
 
 Release 1.3.8 (2020-10-10)
 ==========================
