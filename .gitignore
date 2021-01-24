@@ -1,0 +1,9 @@
+MANIFEST
+build
+dist
+doc/html
+doc/doctrees
+*.egg-info
+*.pyc
+src/llfuse.c
+src/llfuse*.so
