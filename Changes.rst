@@ -8,8 +8,8 @@
 with Python 2.x or libfuse 2.x, we recommended to use the pyfuse3_
 module instead.
 
-Release 1.4.0 (TBD)
-===================
+Release 1.4.0 (2021-01-24)
+==========================
 
 * Remove py2 and py3<3.5 support, minimum requirement is Python 3.5 now.
   If you are stuck on Python 2.x or < 3.5, use llfuse<1.4.0.

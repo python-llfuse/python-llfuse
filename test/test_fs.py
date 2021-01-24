@@ -27,7 +27,7 @@ from util import fuse_test_marker, wait_for_mount, umount, cleanup, wait_for
 
 pytestmark = fuse_test_marker()
 
-@pytest.yield_fixture()
+@pytest.fixture
 def testfs(tmpdir):
 
     # We can't use forkserver because we have to make sure
