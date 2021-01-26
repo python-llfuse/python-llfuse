@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 env:
   FORCE_COLOR: 1
+  CPU: i386
 
 jobs:
   build:
@@ -11,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.5", "3.6", "3.7", "3.8", "3.9"]
+        python-version: ["3.9"]
         os: [ubuntu-latest]
 
     steps:
@@ -24,10 +25,17 @@ jobs:
 
       - name: Install Linux dependencies
         run: |
-          sudo apt-get install -y libattr1-dev
-          sudo apt-get install -y pkg-config
-          sudo apt-get install -y gcc
-          sudo apt-get install -y libfuse-dev
+          sudo apt-get update
+          sudo apt-get install -y gcc pkg-config gcc-multilib g++-multilib
+          sudo apt-get install -y libattr1-dev libfuse-dev
+          sudo apt-get install -y libattr1-dev:i386 libfuse-dev:i386
+
+      - name: Hack for 32bit
+        run: |
+          if [[ $CPU = i386 ]]; then echo -e "#!/bin/bash\n$(which gcc) -m32 \"\$@\"" > ~/bin/gcc; fi
+          if [[ $CPU = i386 ]]; then chmod 755 ~/bin/gcc; fi
+          if [[ $CPU = i386 ]]; then echo -e "#!/bin/bash\n$(which g++) -m32 \"\$@\"" > ~/bin/g++; fi
+          if [[ $CPU = i386 ]]; then chmod 755 ~/bin/g++; fi
 
       - name: Install Python dependencies
         run: |
