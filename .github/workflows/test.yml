@@ -4,11 +4,14 @@ on: [push, pull_request]
 
 env:
   FORCE_COLOR: 1
-  CPU: i386
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    env:
+      CPU: i386
+      PKG_CONFIG_PATH: /usr/lib/i386-linux-gnu/pkgconfig
+
     strategy:
       fail-fast: false
       matrix:
