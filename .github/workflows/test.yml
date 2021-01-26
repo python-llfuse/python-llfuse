@@ -25,6 +25,7 @@ jobs:
 
       - name: Install Linux dependencies
         run: |
+          sudo dpkg --add-architecture i386
           sudo apt-get update
           sudo apt-get install -y gcc pkg-config gcc-multilib g++-multilib
           sudo apt-get install -y libattr1-dev libfuse-dev
