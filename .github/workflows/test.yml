@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9"]
+        python-version: ["3.8"]
         os: [ubuntu-20.04]
 
     steps:
@@ -33,6 +33,7 @@ jobs:
           sudo apt-get install -y gcc pkg-config gcc-multilib g++-multilib
           sudo apt-get install -y libattr1-dev libfuse-dev
           sudo apt-get install -y libattr1-dev:i386 libfuse-dev:i386
+          sudo apt-get install -y python3-dev:i386
 
       - name: Hack for 32bit
         run: |
