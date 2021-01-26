@@ -7,24 +7,16 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-20.04
     env:
       CPU: i386
       PKG_CONFIG_PATH: /usr/lib/i386-linux-gnu/pkgconfig
 
     strategy:
       fail-fast: false
-      matrix:
-        python-version: ["3.8"]
-        os: [ubuntu-20.04]
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
 
       - name: Install Linux dependencies
         run: |
@@ -33,7 +25,8 @@ jobs:
           sudo apt-get install -y gcc pkg-config gcc-multilib g++-multilib
           sudo apt-get install -y libattr1-dev libfuse-dev
           sudo apt-get install -y libattr1-dev:i386 libfuse-dev:i386
-          sudo apt-get install -y python3-dev:i386
+          sudo apt-get install -y python3-dev:i386 python3:i386
+          sudo apt-get install -y python3-pip
 
       - name: Hack for 32bit
         run: |
