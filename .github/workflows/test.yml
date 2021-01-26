@@ -33,6 +33,7 @@ jobs:
 
       - name: Hack for 32bit
         run: |
+          if [[ $CPU = i386 ]]; then mkdir ~/bin; fi
           if [[ $CPU = i386 ]]; then echo -e "#!/bin/bash\n$(which gcc) -m32 \"\$@\"" > ~/bin/gcc; fi
           if [[ $CPU = i386 ]]; then chmod 755 ~/bin/gcc; fi
           if [[ $CPU = i386 ]]; then echo -e "#!/bin/bash\n$(which g++) -m32 \"\$@\"" > ~/bin/g++; fi
