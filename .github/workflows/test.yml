@@ -41,6 +41,7 @@ jobs:
           if [[ $CPU = i386 ]]; then chmod 755 ~/bin/gcc; fi
           if [[ $CPU = i386 ]]; then echo -e "#!/bin/bash\n$(which g++) -m32 \"\$@\"" > ~/bin/g++; fi
           if [[ $CPU = i386 ]]; then chmod 755 ~/bin/g++; fi
+          echo ~/bin > $GITHUB_PATH
 
       - name: Install Python dependencies
         run: |
