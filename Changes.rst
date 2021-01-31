@@ -8,6 +8,11 @@
 with Python 2.x or libfuse 2.x, we recommended to use the pyfuse3_
 module instead.
 
+Release 1.4.1 (2021-01-31)
+==========================
+
+* timestamp rounding tests: avoid y2038 issue in test
+
 Release 1.4.0 (2021-01-24)
 ==========================
 
@@ -24,7 +29,6 @@ Release 1.4.0 (2021-01-24)
   - Add Power support (ppc64le) to travis CI.
   - Move CI to GitHub Actions, except ppc64le.
   - Test fixes for pytest 6.
-
 
 Release 1.3.8 (2020-10-10)
 ==========================
@@ -47,7 +51,6 @@ Release 1.3.6 (2019-02-14)
 * Python-LLFUSE is no longer actively maintained. Unless you are stuck
   with Python 2.x or libfuse 2.x, we recommended to use the pyfuse3_
   module instead.
-
 
 Release 1.3.5 (2018-08-30)
 ==========================
