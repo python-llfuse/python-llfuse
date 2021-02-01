@@ -15,7 +15,10 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os, sys
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# we need util/ so the sphinx_cython extension is found:
 sys.path.insert(0, os.path.join(basedir, 'util'))
+# we need src/ also, it is needed so llfuse can be imported to generate api docs:
+sys.path.insert(0, os.path.join(basedir, 'src'))
 
 #pylint: disable-all
 #@PydevCodeAnalysisIgnore
