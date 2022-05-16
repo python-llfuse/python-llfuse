@@ -58,7 +58,7 @@ if DEVELOPER_MODE:
 # to work properly
 sys.path.insert(0, os.path.join(basedir, 'src'))
 
-LLFUSE_VERSION = '1.4.1'
+LLFUSE_VERSION = '1.4.2'
 
 def main():
 

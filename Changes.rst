@@ -6,6 +6,13 @@
 
 **WARNING**: Python-LLFUSE is no longer actively developed.
 
+Release 1.4.2 (2022-05-31)
+==========================
+
+* cythonize with Cython 0.29.30 (brings python 3.11 support)
+* also test on python 3.10 and 3.11-dev
+* remove "nonempty" default mount option, seems unsupported now.
+
 Release 1.4.1 (2021-01-31)
 ==========================
 
