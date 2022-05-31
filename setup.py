@@ -58,7 +58,7 @@ if DEVELOPER_MODE:
 # to work properly
 sys.path.insert(0, os.path.join(basedir, 'src'))
 
-LLFUSE_VERSION = '1.4.1'
+LLFUSE_VERSION = '1.4.2'
 
 def main():
 
@@ -133,6 +133,8 @@ def main():
                        'Programming Language :: Python :: 3.7',
                        'Programming Language :: Python :: 3.8',
                        'Programming Language :: Python :: 3.9',
+                       'Programming Language :: Python :: 3.10',
+                       'Programming Language :: Python :: 3.11',
                        'Topic :: Software Development :: Libraries :: Python Modules',
                        'Topic :: System :: Filesystems',
                        'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',

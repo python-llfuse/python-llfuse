@@ -2,5 +2,5 @@
 
 set -e
 
-pip install pytest pytest-catchlog cython sphinx
+pip install pytest cython sphinx
 cython --version
