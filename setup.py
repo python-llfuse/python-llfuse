@@ -130,6 +130,7 @@ def main():
                        'Programming Language :: Python :: 3.9',
                        'Programming Language :: Python :: 3.10',
                        'Programming Language :: Python :: 3.11',
+                       'Programming Language :: Python :: 3.12',
                        'Topic :: Software Development :: Libraries :: Python Modules',
                        'Topic :: System :: Filesystems',
                        'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
@@ -223,7 +224,7 @@ class build_cython(setuptools.Command):
 
         hit = re.match('^Cython version (.+)$', version)
         if not hit or LooseVersion(hit.group(1)) < "0.29":
-            # in fact, we need a very recent Cython version (like 0.29.21) to support py39
+            # in fact, we need a very recent Cython version to support the latest pythons
             raise SystemExit('Need Cython 0.29 or newer, found ' + version)
 
         cmd = ['cython', '-Wextra', '--force', '-3', '--fast-fail',
