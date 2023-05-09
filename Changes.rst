@@ -6,6 +6,15 @@
 
 **WARNING**: Python-LLFUSE is no longer actively developed.
 
+Release 1.4.3 (2023-05-09)
+==========================
+
+* cythonize with Cython 0.29.34 (brings python 3.12 support)
+* also test on python 3.12-dev
+* add a minimal pyproject.toml, #70
+* fix basedir in setup.py (malfunctioned with pip install -e .)
+* tests: fix integer overflow on 32-bit architectures
+
 Release 1.4.2 (2022-05-31)
 ==========================
 
