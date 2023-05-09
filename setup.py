@@ -32,16 +32,11 @@ else:
     module = sys.modules['Cython.Distutils.build_ext']
     del module.build_ext
 
-try:
-    import setuptools
-except ImportError:
-    raise SystemExit('Setuptools package not found. Please install from '
-                     'https://pypi.python.org/pypi/setuptools')
+import setuptools
 from setuptools import Extension
 from distutils.version import LooseVersion
 
-# Add util to load path
-basedir = os.path.abspath(os.path.dirname(sys.argv[0]))
+basedir = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(basedir, 'util'))
 
 # when running with DEVELOPER_MODE=1 in the environment:
