@@ -30,9 +30,14 @@ jobs:
           sudo apt-get install -y libfuse-dev
 
       - name: Install Python dependencies
-        run: |
-          test/ci-install.sh
+        if: ${{ matrix.python-version != '3.11' }}
+        run: pip install pytest "sphinx<7.0" "Cython<3"
+
+      - name: Install Python dependencies
+        if: ${{ matrix.python-version == '3.11' }}
+        run: pip install pytest "sphinx<7.0" "Cython==3.0.0b2"
 
       - name: Test
         run: |
+          cython --version
           test/ci-test.sh
