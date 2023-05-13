@@ -10,6 +10,7 @@ the terms of the GNU LGPL.
 
 
 import platform
+import shutil
 import subprocess
 import pytest
 import os
@@ -30,15 +31,9 @@ def fuse_test_marker():
         return pytest.mark.uses_fuse()
     skip = lambda x: pytest.mark.skip(reason=x)
 
-    # Python 2.x: Popen is not a context manager...
-    which = subprocess.Popen(['which', 'fusermount'], stdout=subprocess.PIPE,
-                             universal_newlines=True)
-    try:
-        fusermount_path = which.communicate()[0].strip()
-    finally:
-        which.wait()
+    fusermount_path = shutil.which("fusermount")
 
-    if not fusermount_path or which.returncode != 0:
+    if fusermount_path is None:
         return skip("Can't find fusermount executable")
 
     if not os.path.exists('/dev/fuse'):
