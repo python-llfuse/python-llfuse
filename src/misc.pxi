@@ -685,13 +685,13 @@ cdef inline encap_ptr(void *ptr):
     cap.ptr = ptr
     return cap
 
-cdef void signal_handler(int sig, siginfo_t *si, void* ctx) nogil:
+cdef void signal_handler(int sig, siginfo_t *si, void* ctx) noexcept nogil:
     global exit_reason
     if session != NULL:
         fuse_session_exit(session)
     exit_reason = sig
 
-cdef void do_nothing(int sig, siginfo_t *si, void* ctx) nogil:
+cdef void do_nothing(int sig, siginfo_t *si, void* ctx) noexcept nogil:
     pass
 
 cdef int sigaction_p(int sig, sigaction_t *sa,
