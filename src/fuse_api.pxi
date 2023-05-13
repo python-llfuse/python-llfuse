@@ -372,7 +372,7 @@ ctypedef struct worker_data_t:
     void* buf
     size_t bufsize
 
-cdef void* worker_start(void* data) with gil:
+cdef void* worker_start(void* data) noexcept with gil:
     cdef worker_data_t *wd
     cdef int res
     cdef uintptr_t tid
