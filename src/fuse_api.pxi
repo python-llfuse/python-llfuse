@@ -372,7 +372,7 @@ ctypedef struct worker_data_t:
     void* buf
     size_t bufsize
 
-cdef void* worker_start(void* data) with gil:
+cdef void* worker_start(void* data) noexcept with gil:
     cdef worker_data_t *wd
     cdef int res
     cdef uintptr_t tid
@@ -387,7 +387,7 @@ cdef void* worker_start(void* data) with gil:
         session_loop(wd.buf, wd.bufsize)
     except:
         fuse_session_exit(session)
-        tid = wd.thread_id
+        tid = <uintptr_t> wd.thread_id
         log.error('FUSE worker thread %d terminated with exception, '
                   'aborting processing', tid)
         res = pthread_mutex_lock(&exc_info_mutex)
