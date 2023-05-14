@@ -146,7 +146,10 @@ class Operations(llfuse.Operations):
 
 
     def getattr(self, inode, ctx=None):
-        row = self.get_row('SELECT * FROM inodes WHERE id=?', (inode,))
+        try:
+            row = self.get_row('SELECT * FROM inodes WHERE id=?', (inode,))
+        except NoSuchRowError:
+            raise(llfuse.FUSEError(errno.ENOENT))
 
         entry = llfuse.EntryAttributes()
         entry.st_ino = inode
