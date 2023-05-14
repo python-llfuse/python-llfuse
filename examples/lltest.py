@@ -91,7 +91,25 @@ class TestFs(llfuse.Operations):
 
         # only one entry
         if off == 0:
-            yield (self.hello_name, self.getattr(self.hello_inode), 1)
+            yield (self.hello_name, self.getattr(self.hello_inode), self.hello_inode)
+
+    def statfs(self, ctx):
+        stat_ = llfuse.StatvfsData()
+
+        stat_.f_bsize = 512
+        stat_.f_frsize = 512
+
+        size = 1024 * stat_.f_frsize
+        stat_.f_blocks = size // stat_.f_frsize
+        stat_.f_bfree = max(size // stat_.f_frsize, 1024)
+        stat_.f_bavail = stat_.f_bfree
+
+        inodes = 100
+        stat_.f_files = inodes
+        stat_.f_ffree = max(inodes, 100)
+        stat_.f_favail = stat_.f_ffree
+
+        return stat_
 
     def open(self, inode, flags, ctx):
         if inode != self.hello_inode:
