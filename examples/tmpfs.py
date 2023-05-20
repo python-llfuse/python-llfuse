@@ -146,7 +146,10 @@ class Operations(llfuse.Operations):
 
 
     def getattr(self, inode, ctx=None):
-        row = self.get_row('SELECT * FROM inodes WHERE id=?', (inode,))
+        try:
+            row = self.get_row('SELECT * FROM inodes WHERE id=?', (inode,))
+        except NoSuchRowError:
+            raise(llfuse.FUSEError(errno.ENOENT))
 
         entry = llfuse.EntryAttributes()
         entry.st_ino = inode
@@ -258,8 +261,8 @@ class Operations(llfuse.Operations):
     def link(self, inode, new_inode_p, new_name, ctx):
         entry_p = self.getattr(new_inode_p)
         if entry_p.st_nlink == 0:
-            log.warn('Attempted to create entry %s with unlinked parent %d',
-                     new_name, new_inode_p)
+            log.warning('Attempted to create entry %s with unlinked parent %d',
+                        new_name, new_inode_p)
             raise FUSEError(errno.EINVAL)
 
         self.cursor.execute("INSERT INTO contents (name, inode, parent_inode) VALUES(?,?,?)",
@@ -346,8 +349,8 @@ class Operations(llfuse.Operations):
 
     def _create(self, inode_p, name, mode, ctx, rdev=0, target=None):
         if self.getattr(inode_p).st_nlink == 0:
-            log.warn('Attempted to create entry %s with unlinked parent %d',
-                     name, inode_p)
+            log.warning('Attempted to create entry %s with unlinked parent %d',
+                        name, inode_p)
             raise FUSEError(errno.EINVAL)
 
         now_ns = int(time() * 1e9)

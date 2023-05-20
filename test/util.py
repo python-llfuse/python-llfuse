@@ -101,7 +101,7 @@ def cleanup(mnt_dir):
 
 def umount(mount_process, mnt_dir):
     if platform.system() == 'Darwin':
-        subprocess.check_call(['umount', '-l', mnt_dir])
+        subprocess.check_call(['umount', mnt_dir])
     else:
         subprocess.check_call(['fusermount', '-z', '-u', mnt_dir])
     assert not os.path.ismount(mnt_dir)
