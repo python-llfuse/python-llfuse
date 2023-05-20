@@ -424,7 +424,6 @@ cdef session_loop_mt(workers):
     sigaddset(&newset, signal.SIGHUP);
     sigaddset(&newset, signal.SIGQUIT);
 
-    PyEval_InitThreads()
     bufsize = fuse_chan_bufsize(channel)
     wd = <worker_data_t*> calloc_or_raise(workers, sizeof(worker_data_t))
     try:
