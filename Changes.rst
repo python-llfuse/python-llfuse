@@ -6,6 +6,16 @@
 
 **WARNING**: Python-LLFUSE is no longer actively developed.
 
+Release 1.4.4 (2023-05-21)
+==========================
+
+- CI: use the matrix for cy/py combinations, support and test on Cython 3 beta
+- cy3: cdef void* f(void* d) noexcept with gil, #78
+- cy3: cdef nogil -> noexcept nogil
+- tests: use shutil.which() instead of which(1) executable
+- tests/examples: fix tmpfs: backport fix from pyfuse3
+- tests/examples: fix lltest: add statfs implementation, remove -l from umount
+
 Release 1.4.3 (2023-05-09)
 ==========================
 
