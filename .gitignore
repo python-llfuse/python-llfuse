@@ -7,3 +7,5 @@ doc/doctrees
 *.pyc
 src/llfuse.c
 src/llfuse*.so
+.idea
+
