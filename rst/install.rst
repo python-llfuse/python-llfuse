@@ -68,7 +68,7 @@ necessary commands are::
   python setup.py build_cython
   python setup.py build_ext --inplace
   python -m pytest test/
-  python setup.py build_sphinx
+  sphinx-build -b html rst doc/html
   python setup.py install
 
 
