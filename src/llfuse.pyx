@@ -95,7 +95,6 @@ cdef extern from *:
         EDEADLK
 
 cdef extern from "Python.h" nogil:
-    void PyEval_InitThreads()
     int PY_SSIZE_T_MAX
 
 # Actually passed as -D to cc (and defined in setup.py)
