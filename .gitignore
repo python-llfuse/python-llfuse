@@ -8,4 +8,4 @@ doc/doctrees
 src/llfuse.c
 src/llfuse*.so
 .idea
-
+.pytest_cache
