@@ -59,7 +59,7 @@ copyright = '2010-2023, Nikolaus Rath'
 # built documents.
 #
 # The short X.Y version.
-version = '1.4.4'
+version = '1.5.0'
 # The full version, including alpha/beta/rc tags.
 release = version + ''
 

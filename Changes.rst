@@ -6,6 +6,19 @@
 
 **WARNING**: Python-LLFUSE is no longer actively developed.
 
+Release 1.5.0 (2023-08-08)
+==========================
+
+- Note: this is first pyfuse3 release supporting the Cython 3.0.0 release.
+- Cythonized using Cython 3.0.0 release.
+- Drop Python 3.5, 3.6, 3.7 support, see #69.
+  Minimum requirement is Python 3.8 now.
+- Get rid of PyEval_InitThreads, #55.
+- CI: also test on python 3.12 / cython 3.0 release
+- Tell Cython that callbacks may raise exceptions, #90.
+- Misc. CI, testing, build related fixes/improvements.
+
+
 Release 1.4.4 (2023-05-21)
 ==========================
 
