@@ -19,7 +19,8 @@ build:
 
 python:
     install:
-        - list: ["cython"]
+        - method: pip
+          path: "cython"
         - method: pip
           path: .
 
