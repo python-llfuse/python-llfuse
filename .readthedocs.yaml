@@ -11,6 +11,7 @@ build:
         post_checkout:
             - git fetch --unshallow
         pre_install:
+            - pip install -r requirements.d/rtd.txt
             - python setup.py build_cython
             - python setup.py build_ext --inplace
     apt_packages:
@@ -20,8 +21,6 @@ build:
 
 python:
     install:
-        - method: pip
-          path: "cython"
         - method: pip
           path: .
 
