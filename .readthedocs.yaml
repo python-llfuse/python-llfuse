@@ -16,6 +16,7 @@ build:
     apt_packages:
         - build-essential
         - pkg-config
+        - libfuse-dev
 
 python:
     install:
