@@ -313,6 +313,7 @@ def main(workers=None, handle_signals=True):
             session_loop_single()
         else:
             session_loop_mt(workers)
+    t.join()
 
     if exc_info:
         # Re-raise expression from request handler
