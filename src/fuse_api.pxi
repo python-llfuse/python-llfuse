@@ -301,9 +301,11 @@ def main(workers=None, handle_signals=True):
             on_exit.callback(lambda: restore_signal_handlers())
 
         # Start notification handling thread
+        _notify_queue_shutdown.clear()
         t = threading.Thread(target=_notify_loop)
         t.daemon = True
         t.start()
+        on_exit.callback(_notify_queue_shutdown.set)
         on_exit.callback(_notify_queue.put, None, block=True, timeout=5)
 
         on_exit.callback(lambda: fuse_session_reset(session))
