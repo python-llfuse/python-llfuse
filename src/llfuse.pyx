@@ -137,6 +137,9 @@ lock_released = NoLockManager.__new__(NoLockManager)
 cdef object _notify_queue
 _notify_queue = Queue(maxsize=1000)
 
+cdef object _notify_queue_shutdown
+_notify_queue_shutdown = threading.Event()
+
 # Exported for access from Python code
 # (in the Cython source, we want ENOATTR to refer
 #  to the C constant, not a Python object)
