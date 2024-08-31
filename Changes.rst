@@ -6,6 +6,14 @@
 
 **WARNING**: Python-LLFUSE is no longer actively developed.
 
+Release 1.5.1 (2024-08-31)
+==========================
+
+- Support and test on Python 3.13 also.
+- Cythonized using Cython 3.0.11 to get Python 3.13 support.
+- Misc. CI and readthedocs related changes.
+
+
 Release 1.5.0 (2023-08-08)
 ==========================
 
