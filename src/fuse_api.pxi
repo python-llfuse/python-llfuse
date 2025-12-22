@@ -272,7 +272,7 @@ def main(workers=None, handle_signals=True):
     and the function to return.  *SIGINT* (Ctrl-C) will thus *not* result in
     a `KeyboardInterrupt` exception while this function is runnning.
     Note setting *handle_signals* to `False` means you must handle the signals
-    by yourself and call `stop` to make the `main` returns.
+    by yourself and call ``stop`` to make the `main` returns.
 
     When the function returns because the file system has received an unmount
     request it will return `None`. If it returns because it has received a
