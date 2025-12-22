@@ -7,7 +7,7 @@ Installation script for Python-LLFUSE.
 Copyright (c) 2010 Nikolaus Rath <Nikolaus.org>
 
 This file is part of Python-LLFUSE. This work may be distributed under
-the terms of the GNU LGPL-2.0-or-later.
+the terms of the GNU LGPL.
 '''
 
 
@@ -128,7 +128,6 @@ def main():
           package_dir={'': 'src'},
           packages=setuptools.find_packages('src'),
           python_requires='>=3.8',
-          tests_require=['pytest >= 3.4.0'],
           provides=['llfuse'],
           ext_modules=[Extension('llfuse', c_sources,
                                   extra_compile_args=compile_args,
