@@ -199,7 +199,7 @@ cdef class Lock:
     def yield_(self, count=1):
         '''Yield global lock to a different thread
 
-        A call to `~Lock.yield_` is roughly similar to::
+        A call to ``~Lock.yield_`` is roughly similar to::
 
             for i in range(count):
                 if no_threads_waiting_for(lock):
@@ -207,8 +207,8 @@ cdef class Lock:
                 lock.release()
                 lock.acquire()
 
-        However, when using `~Lock.yield_` it is guaranteed that the lock will
-        actually be passed to a different thread (the above pseude-code may
+        However, when using ``~Lock.yield_`` it is guaranteed that the lock will
+        actually be passed to a different thread (the above pseudocode may
         result in the same thread re-acquiring the lock *count* times).
         '''
 

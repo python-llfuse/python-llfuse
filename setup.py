@@ -47,7 +47,7 @@ if DEVELOPER_MODE:
     warnings.simplefilter('default')
 
 
-LLFUSE_VERSION = '1.5.1'
+LLFUSE_VERSION = '1.5.2'
 
 def main():
 
@@ -105,7 +105,8 @@ def main():
           author='Nikolaus Rath',
           author_email='Nikolaus@rath.org',
           url='https://github.com/python-llfuse/python-llfuse/',
-          license='LGPL',
+          license='LGPL-2.0-or-later',
+          license_files=['LICENSE'],
           classifiers=['Development Status :: 4 - Beta',
                        'Intended Audience :: Developers',
                        'Programming Language :: Python',
@@ -119,7 +120,6 @@ def main():
                        'Programming Language :: Python :: 3.14',
                        'Topic :: Software Development :: Libraries :: Python Modules',
                        'Topic :: System :: Filesystems',
-                       'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
                        'Operating System :: POSIX :: Linux',
                        'Operating System :: MacOS :: MacOS X',
                        'Operating System :: POSIX :: BSD :: FreeBSD'],
@@ -128,7 +128,6 @@ def main():
           package_dir={'': 'src'},
           packages=setuptools.find_packages('src'),
           python_requires='>=3.8',
-          tests_require=['pytest >= 3.4.0'],
           provides=['llfuse'],
           ext_modules=[Extension('llfuse', c_sources,
                                   extra_compile_args=compile_args,

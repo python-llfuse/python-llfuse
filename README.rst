@@ -14,6 +14,8 @@ The Python-LLFUSE Module
 Python-LLFUSE is no longer actively developed and just receiving
 community-contributed maintenance to keep it alive for some time.
 
+A good alternative for some use cases might be `mfusepy <https://github.com/mxmlnkn/mfusepy>`_.
+
 Python-LLFUSE is a set of Python bindings for the low level FUSE_
 API. It requires at least FUSE 2.8.0 and supports both Python 2.x and
 3.x. Like FUSE itself, Python-LLFUSE is developed for Linux systems,
