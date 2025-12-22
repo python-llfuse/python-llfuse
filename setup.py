@@ -7,7 +7,7 @@ Installation script for Python-LLFUSE.
 Copyright (c) 2010 Nikolaus Rath <Nikolaus.org>
 
 This file is part of Python-LLFUSE. This work may be distributed under
-the terms of the GNU LGPL.
+the terms of the GNU LGPL-2.0-or-later.
 '''
 
 
@@ -105,7 +105,8 @@ def main():
           author='Nikolaus Rath',
           author_email='Nikolaus@rath.org',
           url='https://github.com/python-llfuse/python-llfuse/',
-          license='LGPL',
+          license='LGPL-2.0-or-later',
+          license_files=['LICENSE'],
           classifiers=['Development Status :: 4 - Beta',
                        'Intended Audience :: Developers',
                        'Programming Language :: Python',
@@ -119,7 +120,6 @@ def main():
                        'Programming Language :: Python :: 3.14',
                        'Topic :: Software Development :: Libraries :: Python Modules',
                        'Topic :: System :: Filesystems',
-                       'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
                        'Operating System :: POSIX :: Linux',
                        'Operating System :: MacOS :: MacOS X',
                        'Operating System :: POSIX :: BSD :: FreeBSD'],
