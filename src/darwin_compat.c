@@ -10,6 +10,11 @@
 #include <errno.h>
 #include <sys/types.h>
 
+static void _unlock_mutex(void *mutex)
+{
+    pthread_mutex_unlock((pthread_mutex_t *)mutex);
+}
+
 /*
  * Semaphore implementation based on:
  *
@@ -152,7 +157,7 @@ darwin_sem_timedwait(darwin_sem_t *sem, const struct timespec *abs_timeout)
         return -1;
     }
 
-    pthread_cleanup_push((void(*)(void*))&pthread_mutex_unlock,
+    pthread_cleanup_push(&_unlock_mutex,
                  &sem->__data.local.count_lock);
 
     pthread_mutex_lock(&sem->__data.local.count_lock);
@@ -213,7 +218,7 @@ darwin_sem_wait(darwin_sem_t *sem)
     /* Must be volatile or will be clobbered by longjmp */
     volatile int res = 0;
 
-    pthread_cleanup_push((void(*)(void*))&pthread_mutex_unlock,
+    pthread_cleanup_push(&_unlock_mutex,
                  &sem->__data.local.count_lock);
 
     pthread_mutex_lock(&sem->__data.local.count_lock);
