@@ -47,7 +47,7 @@ if DEVELOPER_MODE:
     warnings.simplefilter('default')
 
 
-LLFUSE_VERSION = '1.5.2'
+LLFUSE_VERSION = '1.6.0'
 
 def main():
 
