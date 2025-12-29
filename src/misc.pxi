@@ -267,7 +267,11 @@ def _notify_loop():
     while True:
         req = _notify_queue.get()
         if req is None:
-            return
+            break
+
+        if _notify_queue_shutdown.is_set():
+            # Just drain the queue
+            continue
 
         if req.kind == NOTIFY_INVAL_INODE:
             if req.attr_only:
