@@ -47,7 +47,7 @@ if DEVELOPER_MODE:
     warnings.simplefilter('default')
 
 
-LLFUSE_VERSION = '1.5.2'
+LLFUSE_VERSION = '1.6.0'
 
 def main():
 
@@ -111,8 +111,6 @@ def main():
                        'Intended Audience :: Developers',
                        'Programming Language :: Python',
                        'Programming Language :: Python :: 3',
-                       'Programming Language :: Python :: 3.8',
-                       'Programming Language :: Python :: 3.9',
                        'Programming Language :: Python :: 3.10',
                        'Programming Language :: Python :: 3.11',
                        'Programming Language :: Python :: 3.12',
@@ -127,7 +125,7 @@ def main():
           keywords=['FUSE', 'python' ],
           package_dir={'': 'src'},
           packages=setuptools.find_packages('src'),
-          python_requires='>=3.8',
+          python_requires='>=3.10',
           provides=['llfuse'],
           ext_modules=[Extension('llfuse', c_sources,
                                   extra_compile_args=compile_args,

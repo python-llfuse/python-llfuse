@@ -6,6 +6,13 @@
 
 **WARNING**: Python-LLFUSE is no longer actively developed.
 
+Release 1.6.0 (not yet released)
+================================
+
+- Drop Python 3.8 and 3.9 support.
+- Drop testing on Cython 0.29.x
+
+
 Release 1.5.2 (2025-12-22)
 ==========================
 
