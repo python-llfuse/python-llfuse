@@ -76,7 +76,7 @@ def test_xattr():
             llfuse.setxattr(fh.name, key, value)
         except OSError as exc:
             if exc.errno == errno.ENOTSUP:
-                pytest.skip('ACLs not supported for %s' % fh.name)
+                pytest.skip('xattrs not supported for %s' % fh.name)
             raise
         assert _getxattr_helper(fh.name, key) == value
 

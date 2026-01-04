@@ -14,7 +14,7 @@ the terms of the GNU LGPL.
 
 #ifdef __linux__
 #define PLATFORM PLATFORM_LINUX
-#elif __FreeBSD_kernel__&&__GLIBC__
+#elif __FreeBSD_kernel__ && __GLIBC__
 #define PLATFORM PLATFORM_LINUX
 #elif __FreeBSD__
 #define PLATFORM PLATFORM_BSD
