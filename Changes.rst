@@ -9,6 +9,7 @@
 Release 1.6.0 (not yet released)
 ================================
 
+- Support and test on Python 3.15 also.
 - Drop Python 3.8 and 3.9 support.
 - Drop testing on Cython 0.29.x
 
